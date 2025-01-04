@@ -33,32 +33,17 @@ Provides product-specific details, such as profit per unit and other product att
   
 - **Product Dataset [ProductsFinal.csv](./ProductsFinal.csv)**: 
 
-## Data Cleaning
-
-The dataset was cleaned in Excel before importing into SQL to simplify the cust_id column for easier reference and analysis. The primary data cleaning step involved changing the original, long customer IDs to a simpler numeric format.
-
-- **Original cust_id Format:** The original dataset contained long and complex customer IDs.
-- **Modified cust_id Format:** The cust_id was simplified to a numeric sequence starting from "0001", "0002", ..., up to "1000". This format was used to make the dataset more manageable and to maintain consistency across the analysis.
-- **Duplicates and Inconsistencies:** Removed any duplicate rows or inconsistencies in the dataset.
-
-This cleaned dataset was then used to investigate key business questions and generate actionable insights.
+These datasets were used to investigate key business questions and generate actionable insights.
 
 ## Key Business Questions
 
 
 
-####  1. Customer Distribution: 
- - How is our customer base distributed across the newly defined income groups (Low, Middle, High Income)?
-####  2. Banking Behaviour by Income Group:
- - What are the average account balances and investment contributions for each income group?
-####  3. Loan Application trends by region:
- - What are the approval and rejection rates for loan applications across different continents?
-####  4. Loan Size and Interest Analysis
- - What are the average loan sizes and interest rates for approved, rejected, and pending loan applications
-####  5. Unemployment vs Loan Approval
- - To what extent does unemployment affect the chances of loan approval?
-####  6. Risk Tolerance and Investments
- - How does the average investment vary across different risk tolerance groups (e.g., low, medium, high)?
+####  1. Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?
+####  2. What is the estimated profit and revenue for Q4 of 2022, based on historical trends and performance in Q1-Q3 of 2022?
+####  3. Which coffee sizes and roast types are the most popular among customers?
+####  4. What has been the profit margin for each coffee type since launching in 2019?
+####  5. Who are the most valuable customers based on revenue, profit, and quantity purchased?
 
 ## SQL and Tableau Analysis
 This section documents the process of creating the database, organising the data into tables, and performing SQL analysis to derive insights. Each part includes the SQL queries used, a description of the analysis, visualisations, and the business questions answered in each section.
