@@ -29,9 +29,9 @@ Provides product-specific details, such as profit per unit and other product att
 - **product_id:** Unique identifier for each product (linked to the Orders table).
 - **profit:** Profit generated per unit of a specific product sale.
 
-- **Orders Dataset [Initial.csv](./Initial.csv)**: 
+- **Orders Dataset [OrdersFinal.csv](./OrdersFinal.csv)**: 
   
-- **Product Dataset [Final.csv](./Final.csv)**: 
+- **Product Dataset [ProductsFinal.csv](./ProductsFinal.csv)**: 
 
 ## Data Cleaning
 
