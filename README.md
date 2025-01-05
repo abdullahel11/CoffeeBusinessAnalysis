@@ -311,27 +311,15 @@ The queries for this section produced the following results:
 
 #### Business Questions Answered from this Analysis:
 
-**6. How does the average investment vary across different risk tolerance groups (e.g., low, medium, high)?**
+**6. Who are the most valuable customers based on revenue, profit, and quantity purchased?**
+Navigating through this dashboard, we can easily identify which customers purchased the most, generated the highest revenue, and contributed the most profit. The customer activity section provides a clear ranking of customers based on these metrics.
 
-The results aligned with expectations:
+For example: 
 
-**- Customers with high risk tolerance had the highest average investment at $2,571.**
+We can see that: 
 
-**- Customers with medium risk tolerance followed with an average investment of $1,676.**
-
-**- Customers with low risk tolerance had the lowest average investment at $1,416.**
-
-This trend highlights a clear relationship between risk tolerance and investment behavior, with higher risk tolerance correlating to larger investment amounts.
-
-### Additional Insights:
-
-**- Potential Growth Opportunity for Low-Risk Customers:** 
-
-While low-risk customers represent a large segment of the customer base, their average investment is significantly lower. Encouraging this group to diversify their portfolios with safer investment options could unlock new revenue streams for the bank.
-
-**- Importance of Monitoring High-Networth Customer Activity**
-
-Observing the activity of high-net-worth individuals (HNWIs) is crucial as they contribute significantly to a bank's revenue while representing a small customer base. Monitoring their deposit and withdrawal trends helps manage liquidity, detect risks, and identify cross-selling opportunities. Insights into their financial behavior enable the bank to offer tailored services, ensuring retention and enhancing customer satisfaction. This strategic focus strengthens the bank's relationship with these valuable clients
+- Customer 'Allis Willmore' ranked first as they generated the most revenue for the company.
+- Using the **Quantity Purchased** filter, Customer 'Terri Farra' purchased the most units.
 
 
 ### Conclusion
@@ -340,6 +328,6 @@ This project demonstrated how SQL and Tableau can be combined to extract, analyz
 
 ###   Resources
 
-**Interactive Tableau Dashboard** - (https://public.tableau.com/views/Bank_17339341988090/CustomerDemo?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link)
+**Interactive Tableau Dashboard** - (https://public.tableau.com/views/Book1_17268354073130/1STPAGE?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))
 
 **Full SQL code** - [bankSQLcode.sql](./bankSQLcode.sql)
