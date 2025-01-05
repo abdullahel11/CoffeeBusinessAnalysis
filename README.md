@@ -235,30 +235,24 @@ We can see that:
 **4. Which coffee sizes and roast types are the most popular among customers?**
 
 This question was answered and visualised using the bar charts that display the most and least popular Product ID, in terms of Units Sold.
+
 <img src="https://github.com/user-attachments/assets/3b41804c-1764-4e6a-a1ba-72f869a70108" width="500"/>
 
 We can see that:
-- Products ID **R-L-0.2** (Robusta,Light,0.2kg) sold the most at 100 units, possibly because its one of the cheapest products
+- Products ID **R-L-0.2** (Robusta,Light,0.2kg) sold the most at 100 units, possibly because its one of the cheapest Coffee to purchase
 
 
 
 
-**5. To what extent does unemployment affect the chances of loan approval?**
+**5.What has been the profit margin for each coffee type since launching in 2019?**
 
-This question was answered and visualised using a bar chart that shows the proportion of unemployed customers for each loan outcome (approved, rejected, and pending).
+- **Arabica** profit margin is **9%**
+- **Excelsa** profit margin is **11%**
+- **Liberica** profit margin is **13%**
+- **Robusta** profit margin is **6%**
 
-The analysis revealed the following insights:
 
-- 25% of the customers whose loan applications were approved were unemployed.
-- 22.2% of customers with pending loan applications were unemployed.
-- 29% of customers with rejected loan applications were unemployed.
-
-From these findings, it is evident that unemployment has a slight influence on loan approval, as a higher percentage of unemployed individuals have had their loan applications rejected. The rate of unemployment among approved applicants is relatively lower, while pending applications have a slightly lower unemployment rate compared to rejected ones.
-
-### Additional Insights:
-Despite the highest unemployment rate among rejected applicants (29%), the fact that over 70% of rejected applicants were employed indicates that unemployment alone is not a decisive factor in the rejection of loan applications.
-
-### Risk Tolerance and Finanical Behaviour 
+### Customer Activity
 
 This section delves into customers’ financial behaviours, focusing on their risk tolerance levels and how this influences their investment activities. Customers were segmented into different risk tolerance groups Low, Medium, and High Risk, allowing for a detailed analysis of how their risk preferences relate to their investment behaviours.Additionally,for high-net-worth individuals, account activity is further analysed to reveal trends in their financial behaviour. Lastly, a financial activity section provides a closer look at individual customer activity through bar charts.
 
