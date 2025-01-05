@@ -21,7 +21,7 @@ Contains transactional data, including details about customer purchases, coffee 
 - **quantity:** The number of units purchased per transaction.
 - **customer_id:** Unique identifier for each customer.
 - **product_id:** Identifier linking the product to the Products table.
-- 
+  
 #### Products
 
 Provides product-specific details, such as profit per unit and other product attributes
@@ -47,6 +47,7 @@ These datasets were used to investigate key business questions and generate acti
 ####  6. Who are the most valuable customers based on revenue, profit, and quantity purchased?
 
 ## SQL and Tableau Analysis
+
 This section documents the process of creating the database and importing the data. The orders and products tables were imported directly from Excel files into the database. During the import process, issues arose with the sales and order_date columns, as all fields were initially imported as TEXT. To resolve these issues:
 
 The sales column was converted to a numerical format using the following code:
@@ -72,7 +73,7 @@ USE cafe_project;
 
 The SQL and Tableau Analysis was split into 3 sections.
 
- - **Financial/Monetary Anlysis** - Focused on profit, revenue, and sales to assess overall financial performance, including trends over time
+ - **Financial/Monetary Analysis** - Focused on profit, revenue, and sales to assess overall financial performance, including trends over time
  - **Coffee-Type Analysis** - Examined the performance of different coffee types, identifying the most and least profitable and popular coffee selections, with insights into specific product-level metrics.
  - **Customer Activity Analysis** - Explored customer behavior, ranking customers by their purchases and financial contributions.
 
@@ -81,13 +82,14 @@ The SQL and Tableau Analysis was split into 3 sections.
 ## Financial/Monetary Analysis 
 The Financial Analysis section aimed to provide a comprehensive overview of the company's financial performance. The primary goals were to allow users to:
 
-Track Key Financial Metrics: View the company's profit, revenue, units sold, and profit margins for each year.
-Analyse Trends Over Time: Examine financial trends by breaking down performance into quarterly insights, enabling a deeper understanding of seasonal variations and long-term patterns.
-Interactive filters in the dashboard allowed users to select specific years or view aggregated results across all years. This section also incorporated key performance indicator (KPI) boxes for a quick overview, accompanied by detailed line charts that visualized quarterly trends in revenue and profit with clear distinctions for each year.
+- Track Key Financial Metrics: View the company's profit, revenue, units sold, and profit margins for each year.
+- Analyse Trends Over Time: Examine financial trends by breaking down performance into quarterly insights, enabling a deeper   understanding of seasonal variations and long-term patterns.
+- Interactive filters in the dashboard allowed users to select specific years or view aggregated results across all years.
+- This section also incorporated key performance indicator (KPI) boxes for a quick overview, accompanied by detailed line charts that visualized quarterly trends in revenue and profit with clear distinctions for each year.
 
 These insights helped to identify the company’s most and least profitable periods, supporting data-driven decision-making for financial planning and strategy.
 
-**SQL Query performed**:
+**SQL Querys performed**:
 
 ###  KPI Sections: 
 
