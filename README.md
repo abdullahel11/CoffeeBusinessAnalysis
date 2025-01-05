@@ -39,89 +39,72 @@ These datasets were used to investigate key business questions and generate acti
 
 
 
-####  1. Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?
-####  2. What is the estimated profit and revenue for Q4 of 2022, based on historical trends and performance in Q1-Q3 of 2022?
-####  3. Which coffee sizes and roast types are the most popular among customers?
-####  4. What has been the profit margin for each coffee type since launching in 2019?
-####  5. Who are the most valuable customers based on revenue, profit, and quantity purchased?
+####  1. What has been the overall profit and revenue of the company since launch?
+####  2. What is the estimated profit and revenue for Q4 of 2022, based on historical trends and performance?
+####  3. Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?
+####  4. Which coffee sizes and roast types are the most popular among customers?
+####  5. What has been the profit margin for each coffee type since launching in 2019?
+####  6. Who are the most valuable customers based on revenue, profit, and quantity purchased?
 
 ## SQL and Tableau Analysis
-This section documents the process of creating the database, organising the data into tables, and performing SQL analysis to derive insights. Each part includes the SQL queries used, a description of the analysis, visualisations, and the business questions answered in each section.
+This section documents the process of creating the database and importing the data. The orders and products tables were imported directly from Excel files into the database. During the import process, issues arose with the sales and order_date columns, as all fields were initially imported as TEXT. To resolve these issues:
 
-#### Database creation and Initial setup
+The sales column was converted to a numerical format using the following code:
+```sql
+CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))
+```
+The order_date column was reformatted and extracted into a usable date format using:
+```sql
+YEAR(STR_TO_DATE(o.order_date, '%d-%b-%Y'))
+```
+After resolving these datatype issues, the data was ready for analysis. This section includes the SQL queries used for analysis, descriptions of insights derived, visualizations, and the business questions addressed.
 
-To begin, the database was created in SQL using the cleaned dataset. The first step involved creating the raw data table, which served as the foundation for further analysis.
+#### Database creation
+
+To begin, the database was created in SQL.
 
 SQL Query performed:
 
 ```sql
-CREATE DATABASE bank_project; -- Creating and Using the database
-USE bank_project;
-```
-``` sql
-CREATE TABLE Raw_Data ( -- Create the inital raw data table
-    cust_id VARCHAR(255) PRIMARY KEY,
-    age INT,
-    occupation VARCHAR(100),
-    risk_tolerance VARCHAR(10),
-    investment_goals VARCHAR(255),
-    education VARCHAR(100),
-    marital_status VARCHAR(20),
-    dependents INT,
-    region VARCHAR(100),
-    financial_history VARCHAR(50),
-    sector VARCHAR(100),
-    income_level DECIMAL(65,30),
-    account_balance DECIMAL(65,30),
-    account_deposits DECIMAL(65,30),
-    account_withdrawals DECIMAL(65,30),
-    account_transfers DECIMAL(65,30),
-    international_transfers DECIMAL(65,30),
-    account_investments DECIMAL(65,30),
-    account_type VARCHAR(50),
-    loan_amount DECIMAL(65,30),
-    loan_purpose VARCHAR(255),
-    employment_status VARCHAR(50),
-    loan_term INT,
-    interest_rate DECIMAL(65,15),
-    loan_status VARCHAR(50)
-);
+CREATE database cafe_project;
+USE cafe_project;
 ```
 
-- The Raw_Data table contains all the columns from the cleaned dataset imported directly from Excel.
-- This table was used as a source for creating specialized tables focusing on specific aspects of the dataset, such as demographics, account activity, and loan details.**
-- 
-#### Overview of table creation
-The database was structured into three main tables, each focusing on a specific aspect of customer data
-1. ```customer_demographics``` **This table contains information about customer profiles, such as age, marital status, occupation, income level, and region.**
-2. ```account_activity``` **This table focuses on financial activity, including account balances, deposits, withdrawals, and investments**
-3. ```loan_details``` **This table contains all loan-related information, such as loan amounts, terms, interest rates, and statuses**
+The SQL and Tableau Analysis was split into 3 sections.
+
+ - **Financial/Monetary Anlysis** - Focused on profit, revenue, and sales to assess overall financial performance, including trends over time
+ - **Coffee-Type Analysis** - Examined the performance of different coffee types, identifying the most and least profitable and popular coffee selections, with insights into specific product-level metrics.
+ - **Customer Activity Analysis** - Explored customer behavior, ranking customers by their purchases and financial contributions.
 
 ### Section-specific analysis
 
-### Customer Demographics 
-This section focuses on segmenting customers based on the newly modified  income levels and analysing their account balances and investments. Customers were categorised into three income groups: Low Income, Middle Income, and High Income. The analysis highlights the distribution of customers across these groups, their average and total account balances, and their investment contributions.
+### Financial/Monetary Analysis 
+The Financial Analysis section aimed to provide a comprehensive overview of the company's financial performance. The primary goals were to allow users to:
+
+Track Key Financial Metrics: View the company's profit, revenue, units sold, and profit margins for each year.
+Analyse Trends Over Time: Examine financial trends by breaking down performance into quarterly insights, enabling a deeper understanding of seasonal variations and long-term patterns.
+Interactive filters in the dashboard allowed users to select specific years or view aggregated results across all years. This section also incorporated key performance indicator (KPI) boxes for a quick overview, accompanied by detailed line charts that visualized quarterly trends in revenue and profit with clear distinctions for each year.
+
+These insights helped to identify the company’s most and least profitable periods, supporting data-driven decision-making for financial planning and strategy.
 
 **SQL Query performed**:
 
+## KPI Sections: 
+
 ```sql
-SELECT -- Customer Segmentation Analysis
-    CASE 
-        WHEN cd.income_level < 30000 THEN 'Low Income'
-        WHEN cd.income_level BETWEEN 30000 AND 70000 THEN 'Middle Income'
-        ELSE 'High Income'
-    END AS income_group,
-    COUNT(cd.cust_id) AS customer_count,
-    ROUND(COUNT(cd.cust_id) * 100.0 / (SELECT COUNT(*) FROM Customer_Demographics), 2) AS customer_percentage,
-    ROUND(AVG(aa.account_balance), 2) AS avg_balance, 
-    ROUND(SUM(aa.account_balance), 2) AS total_balance,
-    ROUND(SUM(aa.account_balance) * 100.0 / (SELECT SUM(account_balance) FROM Account_Activity), 2) AS balance_contribution_percentage,
-    ROUND(AVG(aa.account_investments), 2) AS avg_investments, 
-    ROUND(SUM(aa.account_investments), 2) AS total_investments,
-    ROUND(SUM(aa.account_investments) * 100.0 / (SELECT SUM(account_investments) FROM Account_Activity), 2) AS investment_contribution_percentage
-FROM Customer_Demographics AS cd
-JOIN Account_Activity AS aa ON cd.cust_id = aa.cust_id
-GROUP BY income_group;
+SELECT
+    YEAR(STR_TO_DATE(o.order_date, '%d-%b-%Y')) AS year,
+    SUM(o.quantity) AS total_quantity_sold, 
+    SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))) AS total_revenue,
+    ROUND(SUM(o.quantity * p.profit), 2) AS total_profit,
+    ROUND((ROUND(SUM(o.quantity * p.profit), 2)/SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))))*100,2) AS profit_margin
+FROM orders o
+INNER JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY
+    year
+ORDER BY
+    year ASC;
 ```
 
 **Results and Insights:**
