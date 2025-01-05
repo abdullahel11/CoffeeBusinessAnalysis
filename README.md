@@ -339,4 +339,4 @@ Overall, this analysis offered a clear and data-driven understanding of the comp
 
 **Interactive Tableau Dashboard** - (https://public.tableau.com/views/Book1_17268354073130/1STPAGE?:language=en-GB&:sid=&:redirect=auth&:display_count=n&:origin=viz_share_link))
 
-**Full SQL code** - [bankSQLcode.sql](./bankSQLcode.sql)
+**Full SQL code** - [CoffeeBusinessFULLCODE.sql](./CoffeeBusinessFULLCODE.sql)
