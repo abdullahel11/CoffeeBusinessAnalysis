@@ -196,47 +196,52 @@ GROUP BY
 ORDER BY 
     total_profit DESC;
 ```
-**For regional analysis**
-```sql
-SELECT -- Rejection/Approval Rates per region (4)
-    region,
-    COUNT(CASE WHEN loan_status = 'rejected' THEN 1 END) AS rejected_count,
-    ROUND((COUNT(CASE WHEN loan_status = 'rejected' THEN 1 END) * 100.0 / COUNT(Customer_Demographics.cust_id)), 2) AS rejected_rate,
-    COUNT(CASE WHEN loan_status = 'approved' THEN 1 END) AS approved_count,
-    ROUND((COUNT(CASE WHEN loan_status = 'approved' THEN 1 END) * 100.0 / COUNT(Customer_Demographics.cust_id)), 2) AS approved_rate,
-    COUNT(Customer_Demographics.cust_id) AS total_customers
-FROM Customer_Demographics
-JOIN Loan_Details ON Customer_Demographics.cust_id = Loan_Details.cust_id
-GROUP BY region
-ORDER BY rejected_rate DESC;
-```
 **Results and Insights:**
 
 These query's  produced the following results:
 
-- Count of loan application outcomes (approved, rejected) for each loan status.
-- The number of unemployed customers for each loan outcome (approved, rejected).
-- Average loan amount and interest rate for each loan decision (approved, rejected).
-- Rejection and approval rates for loan applications by region.
+- **Revenue and Profit Insights:** This query calculates the total revenue, total profit, and profit margin for each coffee type, roast type, and product size, providing insights into how each coffee product performs financially.
+- **Quantity and Product Breakdown:** It also tracks the total quantity sold for each coffee type and roast type, highlighting the most popular products based on sales volume.
+- **Profitability Analysis:** By calculating the profit margin, the query enables the identification of coffee types with the highest and lowest profitability, supporting informed decision-making regarding product offerings.
 
-### Tableau Visualisation for Loan Performance
-![Image 23-12-2024 at 13 08](https://github.com/user-attachments/assets/da201aa7-5086-44c9-9599-2da5a27f011d)
+
+### Tableau Visualisation for Coffee-Type Analysis
+
+<img width="1251" alt="Screenshot 2025-01-05 at 12 47 15" src="https://github.com/user-attachments/assets/8e8a03f6-250a-419e-8598-789492d78dae" />
+
 
 #### Business Questions Answered from this Analysis:
 
-**3. What are the approval and rejection rates for loan applications across different continents?**
+**3.Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?**
 
-This question was answered and visualized using a bar chart that shows the rejection and approval rates for loan applications by region. The visualization allows for a clear comparison of loan application outcomes across different geographic regions. For example, the region with the highest approval rate is North America, with an approval rate of 48.32%, while customers from Asia had the highest rejection rate, at 32.12%.
+- **Arabica** had a total revenue of **$11,769** and a total profit of **$1,059**
+- **Excelsa** had a total revenue of **$12,307** and a total profit of **$1,354**
+- **Liberica** had a total revenue of **$12,054** and a total profit of **$1,567**
+- **Robusta** had a total revenue of **$9,006** and a total profit of **$540.3**
 
-**4. What are the average loan sizes and interest rates for approved, rejected, and pending loan applications**
+**Highest revenue generating roast types are :**
 
-This question was answered and visualized using two bar charts that display the average loan amount and average interest rates for each loan outcome (approved, rejected, and pending).The first bar chart illustrates the average loan amount corresponding to each loan outcome, while the second bar chart shows the average interest rate for each loan decision.
+<img src="https://github.com/user-attachments/assets/2a6f8581-f9ca-48f5-969c-f106f4777e5c" width="500"/>
 
-**Approved Applications** had an average Loan Amount of **$10,951** and an average interest rate of **6.5%**
+**Highest Profit generating roast types are:**
 
-**Pending Applications** had an average Loan Amount of **$10,987** and an average interest rate of **9.2%**
+<img src="https://github.com/user-attachments/assets/740e052a-8a2e-4838-a313-4f287fea1780" width="500"/>
 
-**Rejected Applications** had an average Loan Amount of **$11,286** and an average interest rate of **9.1%**
+We can see that:
+-  Product ID **A-L-2.5** (Arabica,Light,2.5kg) generated the most revenue.
+-  Product ID **L-D-2.5** (Liberica,Dark,2.5kg) generated the most profit.
+
+
+**4. Which coffee sizes and roast types are the most popular among customers?**
+
+This question was answered and visualised using the bar charts that display the most and least popular Product ID, in terms of Units Sold.
+<img src="https://github.com/user-attachments/assets/3b41804c-1764-4e6a-a1ba-72f869a70108" width="500"/>
+
+We can see that:
+- Products ID **R-L-0.2** (Robusta,Light,0.2kg) sold the most at 100 units, possibly because its one of the cheapest products
+
+
+
 
 **5. To what extent does unemployment affect the chances of loan approval?**
 
