@@ -76,9 +76,9 @@ The SQL and Tableau Analysis was split into 3 sections.
  - **Coffee-Type Analysis** - Examined the performance of different coffee types, identifying the most and least profitable and popular coffee selections, with insights into specific product-level metrics.
  - **Customer Activity Analysis** - Explored customer behavior, ranking customers by their purchases and financial contributions.
 
-### Section-specific analysis
+# Section-specific analysis
 
-### Financial/Monetary Analysis 
+## Financial/Monetary Analysis 
 The Financial Analysis section aimed to provide a comprehensive overview of the company's financial performance. The primary goals were to allow users to:
 
 Track Key Financial Metrics: View the company's profit, revenue, units sold, and profit margins for each year.
@@ -89,7 +89,7 @@ These insights helped to identify the company’s most and least profitable peri
 
 **SQL Query performed**:
 
-## KPI Sections: 
+###  KPI Sections: 
 
 ```sql
 SELECT
@@ -106,7 +106,7 @@ GROUP BY
 ORDER BY
     year ASC;
 ```
-## Quarterly Analysis:
+###  Quarterly Analysis:
 
 ```sql
 SELECT
@@ -171,21 +171,30 @@ By selecting "ALL" in the dashboard's filters, users can view the company's cumu
 ### Coffee-Type Analysis
 The aim of this section was to provide an in-depth analysis of the company’s different coffee types, enabling the user to identify which coffee types generate the most revenue, profit, and sales. By exploring the data at the coffee type level, we can see how different types of coffee contribute to the overall performance and identify any trends or preferences that could inform business decisions
 
-This section includes visualizations that display total revenue, profit, and sales for each coffee type, with the ability to filter by specific coffee types to understand their individual performance. Additionally, a detailed comparison of the most profitable and most popular coffee types helps highlight top performers and provide insights into customer preferences
+This section includes visualizations that display total revenue, profit, and sales for each coffee type, with the ability to filter by specific coffee types to understand their individual performance. Additionally, visual comparisons of the most profitable and most popular coffee types helps highlight top performers and provide insights into customer preferences
 
 **SQL Query's  performed**:
 
 ```sql
-SELECT 
-    loan_status,
-    COUNT(*) AS total_loans,
-    COUNT(CASE WHEN employment_status = 'Unemployed' THEN 1 END) AS unemployed_count,
-    ROUND(AVG(loan_amount), 2) AS avg_loan_amount,
-    ROUND(AVG(interest_rate), 3) AS avg_interest_rate
-FROM Loan_Details
-JOIN Customer_Demographics ON Loan_Details.cust_id = Customer_Demographics.cust_id
-GROUP BY loan_status
-ORDER BY total_loans DESC;
+SELECT
+    o.coffee_type_mame AS coffee_type,  
+    o.size AS WeightKG,
+    SUM(o.quantity) AS total_quantity_sold,
+    o.roast_type_name AS roast_type,
+    o.product_id ,
+    SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))) AS total_revenue,
+    ROUND(SUM(o.quantity * p.profit), 2) AS total_profit,
+    ROUND(ROUND(SUM(o.quantity * p.profit), 2)/SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2)))*100,2) AS profit_margin
+FROM orders o
+INNER JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY
+    coffee_type,
+    o.roast_type_name,
+    o.size,
+    o.product_id
+ORDER BY 
+    total_profit DESC;
 ```
 **For regional analysis**
 ```sql
