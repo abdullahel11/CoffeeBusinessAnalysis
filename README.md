@@ -212,7 +212,7 @@ These query's  produced the following results:
 
 #### Business Questions Answered from this Analysis:
 
-**3.Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?**
+**3. Which coffee types and roast types have beeen the most profitable and generated the highest revenue up until Q3 2022?**
 
 - **Arabica** had a total revenue of **$11,769** and a total profit of **$1,059**
 - **Excelsa** had a total revenue of **$12,307** and a total profit of **$1,354**
@@ -244,7 +244,7 @@ We can see that:
 
 
 
-**5.What has been the profit margin for each coffee type since launching in 2019?**
+**5. What has been the profit margin for each coffee type since launching in 2019?**
 
 - **Arabica** profit margin is **9%**
 - **Excelsa** profit margin is **11%**
@@ -254,59 +254,60 @@ We can see that:
 
 ### Customer Activity
 
-This section delves into customers’ financial behaviours, focusing on their risk tolerance levels and how this influences their investment activities. Customers were segmented into different risk tolerance groups Low, Medium, and High Risk, allowing for a detailed analysis of how their risk preferences relate to their investment behaviours.Additionally,for high-net-worth individuals, account activity is further analysed to reveal trends in their financial behaviour. Lastly, a financial activity section provides a closer look at individual customer activity through bar charts.
+The Customer Activity section focuses on tracking and analyzing customer-specific performance. This includes key metrics such as the total profit, revenue, and quantity purchased by each customer over time. By organizing the data to show individual customer contributions, this section enables the identification of high-performing customers and the overall financial impact of each customer on the company’s revenue and profitability.
 
 **SQL Query's  performed**:
 
 ```sql
-SELECT -- Average Investment per risk category (5)
-    Customer_Demographics.risk_tolerance,
-    ROUND(AVG(Account_Activity.account_investments),2) AS avg_investments,
-    COUNT(Customer_Demographics.cust_id) AS total_customers
-FROM Customer_Demographics
-JOIN Account_Activity ON Customer_Demographics.cust_id = Account_Activity.cust_id
-GROUP BY Customer_Demographics.risk_tolerance
-ORDER BY avg_investments DESC;
-```
+SELECT
+    o.customer_id,
+    o.customer_name, 
+    SUM(o.quantity) AS total_quantity,
+    SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))) AS total_revenue,
+    ROUND(SUM(o.quantity * p.profit), 2) AS total_profit
+FROM orders o
+INNER JOIN products p 
+    ON o.product_id = p.product_id
+GROUP BY o.customer_id, o.customer_name 
+ORDER BY total_revenue DESC;
 
-**Account Activity for all individual Customers**
+SELECT COUNT(DISTINCT customer_id)
+FROM orders;
 
-```sql
+WITH RankedCustomers AS (
+    SELECT
+        o.customer_id,
+        o.customer_name, 
+        SUM(o.quantity) AS total_quantity,
+        SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))) AS total_revenue,
+        ROUND(SUM(o.quantity * p.profit), 2) AS total_profit
+    FROM orders o
+    INNER JOIN products p 
+        ON o.product_id = p.product_id
+    GROUP BY o.customer_id, o.customer_name 
+)
 SELECT 
-    Account_Activity.cust_id,
-    ROUND(account_balance, 2) AS account_balance,
-    ROUND(account_deposits, 2) AS account_deposits,
-    ROUND(account_withdrawals, 2) AS account_withdrawals,
-    ROUND(account_deposits - account_withdrawals, 2) AS net_flow,
-    Customer_Demographics.risk_tolerance
-FROM Account_Activity
-JOIN Customer_Demographics ON Account_Activity.cust_id = Customer_Demographics.cust_id
-ORDER BY account_balance;
-```
-
-**Insights into financial behaviour for High Net-worth Customers**
-```sql
-SELECT -- Account Activity Analysis for High Income earners (3)
-    cust_id,
-    ROUND(account_balance, 2) AS account_balance,
-    ROUND(account_deposits, 2) AS account_deposits,
-    ROUND(account_withdrawals, 2) AS account_withdrawals,
-    ROUND(account_deposits - account_withdrawals, 2) AS net_flow
-FROM Account_Activity
-WHERE account_balance >= 70000
-ORDER BY net_flow DESC;
+    ROW_NUMBER() OVER (ORDER BY total_revenue DESC) AS Number, -- Assigns a rank number to each customer
+    customer_id,
+    customer_name,
+    total_quantity,
+    total_revenue,
+    total_profit
+FROM RankedCustomers
+ORDER BY total_revenue DESC;
 ```
 **Results and Insights:**
 
 The queries for this section produced the following results:
 
-- **Count of Customers:** The number of customers categorized into each risk tolerance group (e.g., Low, Medium, High Risk).
-- **Average Investment Amount:** The average amount invested by customers in each risk tolerance group.
-- **Account Activity for High Net Worth Customers:** A breakdown of financial activity (e.g., deposits, withdrawals, transfers) specific to high-net-worth individuals.
-- **Individual Account Activity:** The ability to explore account activity at the individual customer level through an interactive visual.
+- **Customer-level metrics:** The query calculates total quantity purchased, total revenue, and total profit generated by each customer.
+- **Profit and revenue breakdown:** It provides a detailed breakdown of how much revenue and profit each customer has contributed over time.
+- **Ranking customers:** Customers are ranked based on total revenue, allowing for easy identification of high-revenue customers.
+- **Ranking order:** The results are sorted in descending order by total revenue, highlighting the most profitable customers at the top.
 
 ### Tableau Visualisation for Risk Tolerance and Financial Behaviour.
-![Image 23-12-2024 at 16 26](https://github.com/user-attachments/assets/8078dff2-1c50-41d4-bafe-f161be6781ff)
+<img width="1250" alt="Screenshot 2025-01-05 at 13 55 02" src="https://github.com/user-attachments/assets/d0d0ed6e-a930-479c-a904-df483ab353d5" />
+
 
 #### Business Questions Answered from this Analysis:
 
