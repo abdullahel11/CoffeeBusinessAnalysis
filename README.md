@@ -5,7 +5,6 @@ This project analyses coffee sales, profit, and revenue data using SQL and Table
 
 ## Tools Used
 - **SQL**: Used for database creation, data queries, and analysis.
-- **Excel**: Used for data cleaning, initial data manipulation, and working with raw datasets.
 - **Tableau**: Used for creating interactive visualizations and dashboards to represent the findings.
 - **Figma**: Used for wireframing and planning the dashboard layout and design.
 
