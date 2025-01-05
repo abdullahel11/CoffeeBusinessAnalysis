@@ -106,48 +106,72 @@ GROUP BY
 ORDER BY
     year ASC;
 ```
+## Quarterly Analysis:
+
+```sql
+SELECT
+    YEAR(STR_TO_DATE(o.order_date, '%d-%b-%Y')) AS year,    
+    QUARTER(STR_TO_DATE(o.order_date, '%d-%b-%Y')) AS quarter, 
+    SUM(o.quantity) AS total_quantity,                     
+    SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))) AS total_revenue, 
+    ROUND(SUM(o.quantity * p.profit), 2) AS total_profit,   
+    ROUND((ROUND(SUM(o.quantity * p.profit), 2)/SUM(CAST(REPLACE(o.sales, '$', '') AS DECIMAL(10, 2))))*100,2) AS profit_margin
+FROM orders o
+INNER JOIN products p
+    ON o.product_id = p.product_id
+GROUP BY 
+    YEAR(STR_TO_DATE(o.order_date, '%d-%b-%Y')),            
+    QUARTER(STR_TO_DATE(o.order_date, '%d-%b-%Y'))          
+ORDER BY 
+    year ASC,                                               
+    quarter ASC;
+```
+
 
 **Results and Insights:**
 
 This query produced the following results:
 
-- Customer count per income group
-- Average account balance and investment balance for customers in each income group
-- Total amount of funds in balance and investment accounts for each income group
-- Contribution of each income group to the total balance and investments 
+- Total Revenue,Profit,Units Sold,Profit Margin for each selected year
+- Profit and Revenue for each Quarter. 
 
-### Tableau Visualisation for Customer Demographics.
-![Image 22-12-2024 at 15 36](https://github.com/user-attachments/assets/e2fbd4d7-824b-48e6-8757-90398761a7a0)
+### Tableau Visualisation for Financial Overview.
+
+![Image 05-01-2025 at 11 27](https://github.com/user-attachments/assets/d1047c18-629f-4d53-b730-523f49bc4141)
+
 
 #### Business Questions Answered from this Analysis:
 
-**1. How is our customer base distributed across the newly defined income groups (Low, Middle, High Income)?**
+**1. What has been the overall profit and revenue of the company since launch?**
+By selecting "ALL" in the dashboard's filters, users can view the company's cumulative financial performance since its launch in 2019.
 
-The visualisation clearly shows the distribution of customers across the newly defined income groups:
-- **High Income**: 23 customers
-- **Middle Income**: 113 customers
-- **Low Income**: 864 customers
+- **Overall Revenue:** $45,126
+- **Overall Profit:** $4,520
 
-**2. What are the average account balances and investment contributions for each income group?**
+**2. What is the estimated profit and revenue for Q4 of 2022, based on historical trends and performance?**
 
-The bar chart highlights the average account balances and investment amounts for each group:
-- **High Income earners** have the highest average account balance and investment amounts compared to the other groups.
-- Middle and Low Income groups contribute significantly less on average.
+ This formula was used for the estimation:
+- Average Q4 Growth Rate = Q4 Revenue or Profit − Q3 Revenue or Profit / Q3 Revenue or Profit * 100
+  
+  Q3 2022 Revenue was $1151, average Q3 to Q4 Revenue growth rate is 20.66% (using above formula)
+  
+  Estimated Q4 Revenue = $1151*1.2066 = **$1388.8**
+  
+  Same method was used to find estimated Q4 profit:
+  
+  Q3 2022 Profit was $114.4, aberage Q3 to Q4 Profit growth rate is 34.73% (using above formula)
+  
+  Estimated Q4 Profit = $114.4 * 1.3473 = **$154.13**
 
 ### Additional Insights:
 
-**- High Income Group Impact:** Despite representing only **2.3%** of the total customers, high-income earners contribute a significant **13.77%** to the cumulative account balances across all customers. This means that their financial contribution is approximately **6x** their population proportion, highlighting their outsized impact on total account balances.
-
-![Image 23-12-2024 at 11 03](https://github.com/user-attachments/assets/57694236-c3cf-418e-9c75-3baed2aa5ad2)
+**- Seasonal Profit and Revenue Trends:** There is consistently a noticeable spike in both profit and revenue during Q4 across the years. This trend suggests that Q4, possibly driven by seasonal factors such as increased demand during the holidays or special promotions, tends to be a high-performing quarter for the company. The data shows that, on average, Q4 outperforms other quarters in terms of revenue generation and profit margins, making it a key period to focus on for future business strategies and forecasting.
 
 
-**- Low Income Group Contribution:** Conversely, low-income earners account for **86.4%** of the total customers but contribute only **46.4%** to the cumulative account balances. This shows that their financial contribution is approximately **0.54x** their population proportion, reflecting the relatively lower financial capacity of this group compared to their size.
+### Coffee-Type Analysis
+The aim of this section was to provide an in-depth analysis of the company’s different coffee types, enabling the user to identify which coffee types generate the most revenue, profit, and sales. By exploring the data at the coffee type level, we can see how different types of coffee contribute to the overall performance and identify any trends or preferences that could inform business decisions
 
-![Image 23-12-2024 at 11 04](https://github.com/user-attachments/assets/444f701f-9fac-4fde-b5a8-d9b0950fc3f4)
-
-
-### Loan Performance
-This section focuses on analysing loan performance, including the outcomes of loan applications , the average loan amount, and interest rates for each loan status. Additionally, the analysis breaks down loan approval and rejection rates by region, providing insights into regional disparities and if unemployment influence loan application decisions.
+This section includes visualizations that display total revenue, profit, and sales for each coffee type, with the ability to filter by specific coffee types to understand their individual performance. Additionally, a detailed comparison of the most profitable and most popular coffee types helps highlight top performers and provide insights into customer preferences
 
 **SQL Query's  performed**:
 
