@@ -312,6 +312,7 @@ The queries for this section produced the following results:
 #### Business Questions Answered from this Analysis:
 
 **6. Who are the most valuable customers based on revenue, profit, and quantity purchased?**
+
 Navigating through this dashboard, we can easily identify which customers purchased the most, generated the highest revenue, and contributed the most profit. The customer activity section provides a clear ranking of customers based on these metrics.
 
 For example: 
@@ -324,7 +325,15 @@ We can see that:
 
 ### Conclusion
 
-This project demonstrated how SQL and Tableau can be combined to extract, analyze, and visualize key insights from a financial dataset. Through segmentation, performance analysis, and behavioral patterns, actionable insights were uncovered to support decision-making in areas such as loan approvals, customer risk tolerance, and high-net-worth account activity
+The SQL and Tableau analysis provided a comprehensive overview of the company's financial performance, coffee product trends, and customer activity. By extracting and analyzing key data points from the orders and products tables, the analysis allowed us to:
+
+- **Financial Insights**: We were able to evaluate the overall revenue, profit, and profit margins over time, with a detailed breakdown by year and quarter. This revealed important seasonal trends, such as the consistent revenue and profit spikes in Q4, and helped estimate expected profit and revenue for future quarters.
+
+- **Coffee-Type Performance:** The analysis provided valuable insights into which coffee types were the most profitable and popular, as well as how revenue and profit varied across different product sizes and roast types. This information enabled better decision-making regarding inventory management and marketing strategies for specific coffee types.
+  
+- **Customer Activity:** The customer activity analysis identified the most valuable customers based on their total revenue, profit, and purchase quantity. By segmenting the data, we were able to identify high-value customers and tailor business strategies to retain and engage them.
+  
+Overall, this analysis offered a clear and data-driven understanding of the company's performance across financial, product, and customer dimensions,
 
 ###   Resources
 
