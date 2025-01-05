@@ -12,6 +12,7 @@ This project analyses coffee sales, profit, and revenue data using SQL and Table
 The dataset used for this project consists of two main sections:
 #### Orders: 
 Contains transactional data, including details about customer purchases, coffee types, roast types, sizes, and sales information
+
   Key fields:
 - **coffee_type_name:** The type of coffee purchased (e.g., Arabica, Robusta, Excelsa).
 - **size:** Weight of the coffee purchased (e.g., 250g, 1kg).
